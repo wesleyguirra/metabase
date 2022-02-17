@@ -26,6 +26,24 @@
   stroke: var(--color-text-light);
 }
 
+.dc-chart .events-axis .event-tick .event-icon {
+  stroke: var(--color-text-light);
+  fill: var(--color-text-light);
+}
+
+.dc-chart .events-axis .event-tick text {
+  fill: var(--color-text-light);
+}
+
+.dc-chart .events-axis .event-tick.hover .event-icon {
+  stroke: var(--color-brand);
+  fill: var(--color-brand);
+}
+
+.dc-chart .events-axis .event-tick.hover text {
+  fill: var(--color-brand);
+}
+
 .LineAreaBarChart .dc-chart .axis .tick text {
   fill: var(--color-text-medium);
 }

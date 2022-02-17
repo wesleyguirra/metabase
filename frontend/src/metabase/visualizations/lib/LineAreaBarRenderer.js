@@ -811,7 +811,7 @@ function doHistogramBarStuff(parent) {
 /************************************************************ PUTTING IT ALL TOGETHER ************************************************************/
 
 export default function lineAreaBar(element, props) {
-  const { onRender, isScalarSeries, settings, series } = props;
+  const { onRender, onHoverChange, isScalarSeries, settings, series } = props;
 
   const warnings = {};
   // `text` is displayed to users, but we deduplicate based on `key`
@@ -921,6 +921,10 @@ export default function lineAreaBar(element, props) {
     isStacked: isStacked(parent.settings, datas),
     formatYValue: getYValueFormatter(parent, series, yAxisProps.yExtent),
     datas,
+
+    isTimeseries: isTimeseries(parent.settings),
+    xDomain: xAxisProps.xDomain,
+    onHoverChange,
   });
 
   // only ordinal axis can display "null" values
