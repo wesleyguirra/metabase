@@ -17,7 +17,7 @@ const RELOAD_INTERVAL = 2000;
   reloadInterval: (state, props, tables = []) => {
     return tables.some(t => isSyncInProgress(t)) ? RELOAD_INTERVAL : 0;
   },
-  selectorName: "getListUnfiltered",
+  selectorName: "getDataModelTables",
 })
 export default class MetadataTablePicker extends Component {
   constructor(props, context) {

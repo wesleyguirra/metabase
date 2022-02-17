@@ -46,7 +46,7 @@ export default class Column extends Component {
   };
 
   render() {
-    const { field, idfields, dragHandle } = this.props;
+    const { field, idfields, dragHandle, canEditDataModel } = this.props;
 
     return (
       <div className="p1 mt1 mb3 flex bordered rounded">
@@ -58,6 +58,7 @@ export default class Column extends Component {
               type="text"
               value={this.props.field.display_name || ""}
               onBlurChange={this.handleChangeName}
+              disabled={!canEditDataModel}
             />
             <div className="clearfix">
               <div className="flex flex-auto">
@@ -66,6 +67,7 @@ export default class Column extends Component {
                     className="block"
                     field={field}
                     updateField={this.updateField}
+                    disabled={!canEditDataModel}
                   />
                 </div>
                 <div className="flex-auto px1">
@@ -74,13 +76,18 @@ export default class Column extends Component {
                     field={field}
                     updateField={this.updateField}
                     idfields={idfields}
+                    disabled={!canEditDataModel}
                   />
                 </div>
                 <Link
                   to={`${this.props.location.pathname}/${this.props.field.id}`}
                   className="text-brand-hover mr1"
                 >
-                  <Button icon="gear" style={{ padding: 10 }} />
+                  <Button
+                    disabled={!canEditDataModel}
+                    icon="gear"
+                    style={{ padding: 10 }}
+                  />
                 </Link>
               </div>
             </div>
@@ -92,10 +99,11 @@ export default class Column extends Component {
               value={this.props.field.description || ""}
               onBlurChange={this.handleChangeDescription}
               placeholder={t`No column description yet`}
+              disabled={!canEditDataModel}
             />
           </div>
         </div>
-        {dragHandle}
+        {canEditDataModel ? dragHandle : null}
       </div>
     );
   }
@@ -109,10 +117,11 @@ export class FieldVisibilityPicker extends Component {
   };
 
   render() {
-    const { field, className } = this.props;
+    const { field, className, canEditDataModel } = this.props;
 
     return (
       <Select
+        disabled={!canEditDataModel}
         className={cx("TableEditor-field-visibility", className)}
         value={field.visibility_type}
         onChange={this.handleChangeVisibility}
@@ -166,7 +175,7 @@ export class SemanticTypeAndTargetPicker extends Component {
   };
 
   render() {
-    const { field, className, selectSeparator } = this.props;
+    const { field, className, selectSeparator, canEditDataModel } = this.props;
 
     const semanticTypes = [
       ...MetabaseCore.field_semantic_types,
@@ -203,6 +212,7 @@ export class SemanticTypeAndTargetPicker extends Component {
           optionSectionFn={o => o.section}
           placeholder={t`Select a semantic type`}
           searchProp="name"
+          disabled={!canEditDataModel}
         />
         {showCurrencyTypeSelect && selectSeparator}
         {// TODO - now that we have multiple "nested" options like choosing a
@@ -210,6 +220,7 @@ export class SemanticTypeAndTargetPicker extends Component {
         // handle a "secondary" input more elegantly
         showCurrencyTypeSelect && (
           <Select
+            disabled={!canEditDataModel}
             className={cx(
               "TableEditor-field-target inline-block",
               selectSeparator ? "mt0" : "mt1",
@@ -238,6 +249,7 @@ export class SemanticTypeAndTargetPicker extends Component {
         {showFKTargetSelect && selectSeparator}
         {showFKTargetSelect && (
           <Select
+            disabled={!canEditDataModel}
             className={cx(
               "TableEditor-field-target text-wrap",
               selectSeparator ? "mt0" : "mt1",
