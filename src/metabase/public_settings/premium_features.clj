@@ -144,13 +144,13 @@
   []
   (try
     (or (some-> (premium-embedding-token) valid-token->features)
-        #{:whitelabel true, 
-          :embedding true, 
-          :content-management true, 
-          :advanced-config true, 
-          :advanced-permission true, 
-          :sandboxes true, 
-          :audit-app true})
+        #{"whitelabel"
+          "embedding"
+          "content-management"
+          "advanced-config"
+          "advanced-permission"
+          "sandboxes"
+          "audit-app"})
     (catch Throwable e
       (log/error (trs "Error validating token") ":" (ex-message e))
       (log/debug e (trs "Error validating token"))
